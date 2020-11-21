@@ -23,6 +23,7 @@ public class Factory {
         pk_service_time = kb.nextInt();
 
         kb.close();
+        System.out.println("\nSimulation running for " + run_time + " seconds...");
     }
 
     public static void main(String args[]) {
@@ -38,8 +39,6 @@ public class Factory {
         consumerThread0.start();
 //        consumerThread1.start();
 //        consumerThread2.start();
-
-        System.out.println("Simulation running for " + run_time + " seconds...");
 
         // used to stop producing/consuming threads
         try {

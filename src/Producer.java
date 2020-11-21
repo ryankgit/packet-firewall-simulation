@@ -5,11 +5,11 @@
 public class Producer implements Runnable {
     // Producer instance variables
     private Buffer buffer;
-    private int serviceTime;
-    private int interarrivalTime;
+    private double serviceTime;
+    private double interarrivalTime;
 
     // Producer constructor, called in Factory.java
-    public Producer(Buffer b, int interarrivalTime, int serviceTime) {
+    public Producer(Buffer b, double interarrivalTime, double serviceTime) {
         buffer = b;
         this.interarrivalTime = interarrivalTime;
         this.serviceTime = serviceTime;

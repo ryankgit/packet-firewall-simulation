@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class Packet {
     // ================================================================================
     // Packet specific info
-    public long create_time;
-    public long actual_service_time; // arrival time, set in Consumer
-    public long end_time;
-    public long turnaround_time; // turnaround time = service time + wait time
-    public long service_time; // service_time = end time - start service time
-    public long wait_time; // wait time = process time - service time
+    public double create_time;
+    public double actual_service_time; // arrival time, set in Consumer
+    public double end_time;
+    public double turnaround_time; // turnaround time = service time + wait time
+    public double service_time; // service_time = end time - start service time
+    public double wait_time; // wait time = process time - service time
     public String cqd; // Packet created, queued, or discarded
 
     // Packet maximums, initialized to 0
@@ -39,7 +39,7 @@ public class Packet {
     // ================================================================================
 
     // Constructor: packets created by Producer; service time predefined in Factory
-    public Packet(int serviceTime) {
+    public Packet(double serviceTime) {
         create_time = System.currentTimeMillis();
         // service time set in Producer; predefined in Factory
         service_time = serviceTime;

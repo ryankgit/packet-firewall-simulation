@@ -18,7 +18,7 @@ public class Consumer implements Runnable {
             Packet.startServiceTime(p);
 
             // nap for packet service time (defined in Factory)
-            SleepUtilities.nap((int)p.service_time);
+            SleepUtilities.nap(p.service_time);
 
             // calculate processed packet info
             Packet.setPacketTimes(p);

@@ -9,7 +9,7 @@ import java.util.concurrent.Semaphore;
  */
 public class BoundedBuffer implements Buffer {
 
-    private static final int BUFFER_SIZE = 5; // "The maximum queue size is 5 packets"
+    private static final int BUFFER_SIZE = Factory.buffer_size;
     private Semaphore mutex;
     private Semaphore empty;
     private Semaphore full;

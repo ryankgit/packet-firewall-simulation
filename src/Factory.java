@@ -10,6 +10,7 @@ public class Factory {
     public static long run_time;
     public static int pk_interarrival_time;
     public static int pk_service_time;
+    public static int buffer_size;
 
     // get simulation parameters from user
     private static void setParams() {
@@ -21,6 +22,8 @@ public class Factory {
         pk_interarrival_time = kb.nextInt();
         System.out.println("Enter packet service time (milliseconds):");
         pk_service_time = kb.nextInt();
+        System.out.println("Enter FIFO-queue buffer size:");
+        buffer_size = kb.nextInt();
 
         kb.close();
         System.out.println("\nSimulation running for " + run_time + " seconds...");

@@ -16,9 +16,6 @@ public class BoundedBuffer implements Buffer {
     private int count;
     private int in, out;
     private Object[] buffer;
-    // for packet statistics
-    public static int pTotal;
-    public static int pDropTotal;
 
     public BoundedBuffer() {
         // buffer is initially empty
@@ -39,7 +36,6 @@ public class BoundedBuffer implements Buffer {
         if (count == BUFFER_SIZE) {
             // drop packet
             //System.out.println("Packet discarded: Buffer full");
-            pDropTotal++;
             return false;
         }
 
@@ -59,7 +55,6 @@ public class BoundedBuffer implements Buffer {
         mutex.release();
         full.release();
 
-        pTotal++;
         return true;
     }
 

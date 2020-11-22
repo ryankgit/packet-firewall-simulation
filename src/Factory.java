@@ -29,7 +29,7 @@ public class Factory {
         System.out.println("\nSimulation running for " + run_time + " seconds...");
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         setParams();
         Buffer server = new BoundedBuffer();
 
@@ -57,8 +57,8 @@ public class Factory {
 //        consumerThread1.stop();
 //        consumerThread2.stop();
 
-        // print stats on each packet for debugging purposes
-//        for(Packet p : Packet.pList){
+        // print stats on each processed packet for debugging purposes
+//        for(Packet p : Packet.pProcessedList){
 //            System.out.println(p + " end time: " + p.end_time + " process time: " + p.process_time + " service time: "
 //                    + p.service_time + " wait time: " + p.wait_time);
 //        }

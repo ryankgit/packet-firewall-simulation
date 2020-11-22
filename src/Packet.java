@@ -33,8 +33,8 @@ public class Packet {
     // total service time of all packets; used to calculate utilization
     public static double totalServiceTime;
 
-    // arraylists to keep track of added and dropped packets; added to in BoundedBuffer
-    public static ArrayList<Packet> pList = new ArrayList<>();
+    // arraylists to keep track of added and dropped packets; added to in Producer based on Packet status in BoundedBuffer
+    public static ArrayList<Packet> pProcessedList = new ArrayList<>();
     public static ArrayList<Packet> pDropList = new ArrayList<>();
     // ================================================================================
 
@@ -76,40 +76,41 @@ public class Packet {
         }
     }
 
-    private static double setPacketStatistics() {
+    private static void setPacketStatistics() {
         // add up total Packet turnaround, wait, service times:
-        for (Packet p : pList) {
+        for (Packet p : pProcessedList) {
             avgTurnaroundTime += p.turnaround_time;
             avgWaitTime += p.wait_time;
             avgServiceTime += p.service_time;
         }
         totalServiceTime = avgServiceTime;
         // calculate averages based on only processed packages
-        double packetsProcessed = BoundedBuffer.pTotal - BoundedBuffer.pDropTotal;
+        double packetsProcessed = pProcessedList.size();
         // find average Packet process, service, wait times:
         avgTurnaroundTime = avgTurnaroundTime / packetsProcessed;
         avgWaitTime = avgWaitTime / packetsProcessed;
         avgServiceTime = avgServiceTime / packetsProcessed;
-        // return packetsProcessed to be used in calculating processor throughput in printPackageStatistics()
-        return packetsProcessed;
     }
 
     public static void printPacketStatistics() {
         // generate packet statistics
-        double packetsProcessed = setPacketStatistics();
+        setPacketStatistics();
+
+        double processedPackets = pProcessedList.size();
+        double droppedPackets = pDropList.size();
+        double totalPackets = processedPackets + droppedPackets;
 
         // print packet statistics:
-        System.out.println("\nPercent of discarded packets: " + ((double)BoundedBuffer.pDropTotal / BoundedBuffer.pTotal) * 100
-                + "% (" + BoundedBuffer.pDropTotal + " out of " + BoundedBuffer.pTotal + " packets)");
+        System.out.println("\nPercent of discarded packets: " + (droppedPackets / totalPackets) * 100
+                + "% (" + droppedPackets + " out of " + totalPackets + " packets)");
         System.out.println("\nAverage Service Time: " + avgServiceTime + "ms");
         System.out.println("Max Service Time: " + maxServiceTime + "ms");
         System.out.println("Average Turn Around Time: " + avgTurnaroundTime + "ms");
         System.out.println("Max Turn Around Time: " + maxTurnaroundTime + "ms");
         System.out.println("Average Wait Time: " + avgWaitTime + "ms");
         System.out.println("Max Wait Time: " + maxWaitTime + "ms");
-        // Processor utilization calculated below is the same as (totalServiceTime / Producer.interarrivalTime)
         System.out.println("\nProcessor Utilization: " + (totalServiceTime / (Factory.run_time * 1000)) * 100 +
                 "% (Total Service Time: " + totalServiceTime + "ms, Program Run Time: " + Factory.run_time * 1000.0 + "ms)");
-        System.out.println("Processor Throughput: " + packetsProcessed / Factory.run_time + " packets/second");
+        System.out.println("Processor Throughput: " + totalPackets / Factory.run_time + " packets/second");
     }
 }

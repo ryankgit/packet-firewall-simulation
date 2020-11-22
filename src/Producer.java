@@ -17,14 +17,14 @@ public class Producer implements Runnable {
 
     public void run() {
         while (true) {
-            // "purpose of the Network-Producer is to generate (or produce) Packets every interarrivalTime"
+            // purpose of the Network-Producer is to generate (or produce) Packets every interarrivalTime
             SleepUtilities.nap(interarrivalTime);
             Packet p = new Packet(serviceTime);
 
             // insert packet into buffer, add packet to pList or pDropList depending on if packet is processed
             if (buffer.insert(p)) {
                 // packet added to buffer
-                Packet.pList.add(p);
+                Packet.pProcessedList.add(p);
                 // set cqd: packet has be queued
                 p.cqd = "queued";
             }

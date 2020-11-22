@@ -1,11 +1,11 @@
 # packet-firewall-simulation
 
-### Project Summary:
 The purpose of this project is to simulate a redundant firewall to compare performance of different configurations of Producers and Consumers, 
 different Packet interarrival and process times, and various queue sizes. This program uses semaphore logic to emulate an actual 
 firewall implementation.
 
-### Project Files:
+# Project Files
+
 * `Factory.java` prompts user for simulation parameters, generates Producers (Network) and Consumers (Firewall Processors), prints Packet statistics.
 * `Producer.java` generates Packets.
 * `Consumer.java` processes Packet.
@@ -13,7 +13,7 @@ firewall implementation.
 * `Packet.java` tracks Packet-specific information (create time, end time, service time, turnaround time, processing time, etc).
 * `SleepUtilities.java` sleeps Producer and Consumer to simulate set packet interarrival and service times.
 
-### Example Statistical Output:
+# Example Statistical Output
 
     Percent of discarded packets: 0.0% (0 out of 74 packets)
 
@@ -29,7 +29,7 @@ firewall implementation.
     
 _(Example output is the result of running the simulation for 60 seconds with an interarrival time of 800 milliseconds, service time of 600 milliseconds, and buffer size of 5 with 1 Producer and 1 Consumer)_
 
-### Future Work:
+# Future Work
 
 * ~~Add configurable queue size in `BoundedBuffer.java`~~
 * ~~Implement a random exponential distribution for Packet interarrival and process times~~

@@ -4,17 +4,13 @@ import java.util.concurrent.Semaphore;
  * BoundedBuffer.java
  *
  * This program implements the bounded buffer with semaphores.
- * Note that the use of count only serves to output whether
- * the buffer is empty of full.
+ *
  */
 public class BoundedBuffer implements Buffer {
 
     private static final int BUFFER_SIZE = Factory.buffer_size;
-    private Semaphore mutex;
-    private Semaphore empty;
-    private Semaphore full;
-    private int count;
-    private int in, out;
+    private Semaphore mutex, empty, full;
+    private int count, in, out;
     private Object[] buffer;
 
     public BoundedBuffer() {
@@ -32,11 +28,20 @@ public class BoundedBuffer implements Buffer {
 
     // producer calls this method
     public boolean insert(Object item) {
-        // if buffer is full, drop packet
-        if (count == BUFFER_SIZE) {
-            // drop packet
-            //System.out.println("Packet discarded: Buffer full");
-            return false;
+        try {
+            mutex.acquire();
+            // if buffer is full, drop packet
+            if (count == BUFFER_SIZE) {
+                // drop packet
+                //System.out.println("Packet discarded: Buffer full");
+                mutex.release();
+                return false;
+            }
+            else {
+                mutex.release();
+            }
+        } catch (Exception e) {
+            System.out.println("Error inserting packet:" + e);
         }
 
         // insert packet

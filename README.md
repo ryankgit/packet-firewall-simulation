@@ -15,19 +15,21 @@ firewall implementation.
 
 # Example Statistical Output
 
-    Percent of discarded packets: 0.0% (0 out of 74 packets)
+~~~
+Percent of discarded packets: 6.916621548456956% (511.0 out of 7388.0 packets)
 
-    Average Service Time: 611.7837837837837ms
-    Max Service Time: 638.0ms
-    Average Turn Around Time: 603.6756756756756ms
-    Max Turn Around Time: 638.0ms
-    Average Wait Time: 0.0ms
-    Max Wait Time: 0.0ms
+Average Service Time: 5.811254907663225ms
+Max Service Time: 60.0ms
+Average Turn Around Time: 14.136105860113421ms
+Max Turn Around Time: 91.0ms
+Average Wait Time: 8.327468372836993ms
+Max Wait Time: 77.0ms
 
-    Processor Utilization: 75.45333333333333% (Total Service Time: 45272.0ms, Program Run Time: 60000.0ms)
-    Processor Throughput: 1.2333333333333334 packets/second
+Processor Utilization: 66.60666666666667% (Total Service Time: 39964.0ms, Program Run Time: 60000.0ms)
+Processor Throughput: 123.13333333333334 packets/second
+~~~
     
-_(Example output is the result of running the simulation for 60 seconds with an interarrival time of 800 milliseconds, service time of 600 milliseconds, and buffer size of 5 with 1 Producer and 1 Consumer)_
+_(Example output is the result of running the simulation for 60 seconds with an interarrival time of 8 milliseconds, service time of 6 milliseconds, and buffer size of 5 with 1 Producer and 1 Consumer)_
 
 # Future Work
 

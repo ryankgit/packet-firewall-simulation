@@ -6,44 +6,58 @@ import java.util.Scanner;
  *
  */
 public class Factory {
-    // Factory instance variables
+    // ================================================================================
+    // instance variables for simulation
     public static long run_time;
     public static int pk_interarrival_time;
     public static int pk_service_time;
     public static int buffer_size;
+    private static int numProducers;
+    private static int numConsumers;
+    private static Thread[] producerArr;
+    private static Thread[] consumerArr;
+    // ================================================================================
 
     // get simulation parameters from user
     private static void setParams() {
         Scanner kb = new Scanner(System.in);
 
-        System.out.println("Enter simulation run time (seconds):");
-        run_time = kb.nextLong();
-        System.out.println("Enter packet interarrival time (milliseconds):");
+        System.out.println("Enter number of Networks (Producers):");
+        numProducers = kb.nextInt();
+        producerArr = new Thread[numProducers];
+
+        System.out.println("Enter number of Firewalls (Consumers):");
+        numConsumers = kb.nextInt();
+        consumerArr = new Thread[numConsumers];
+
+        System.out.println("Enter packet interarrival time (in milliseconds):");
         pk_interarrival_time = kb.nextInt();
-        System.out.println("Enter packet service time (milliseconds):");
+        System.out.println("Enter packet service time (in milliseconds):");
         pk_service_time = kb.nextInt();
         System.out.println("Enter FIFO-queue buffer size:");
         buffer_size = kb.nextInt();
+        System.out.println("Enter simulation run time (in seconds):");
+        run_time = kb.nextLong();
 
         kb.close();
-        System.out.println("\nSimulation running for " + run_time + " seconds...");
+        System.out.println("\nSimulation running for " + run_time + " seconds...\n\n");
     }
 
     public static void main(String[] args) {
         setParams();
         Buffer server = new BoundedBuffer();
 
-        // create the producer and consumer threads
-        Thread producerThread = new Thread(new Producer(server, pk_interarrival_time, pk_service_time));
-        Thread consumerThread0 = new Thread(new Consumer(server));
-//        Thread consumerThread1 = new Thread(new Consumer(server));
-//        Thread consumerThread2 = new Thread(new Consumer(server));
-        producerThread.start();
-        consumerThread0.start();
-//        consumerThread1.start();
-//        consumerThread2.start();
+        // create the Producer and Consumer Threads
+        for (int i = 0; i < numProducers; i++) {
+            producerArr[i] = new Thread(new Producer(server, pk_interarrival_time, pk_service_time));
+            producerArr[i].start();
+        }
+        for (int i = 0; i < numConsumers; i++) {
+            consumerArr[i] = new Thread(new Consumer(server));
+            consumerArr[i].start();
+        }
 
-        // used to stop producing/consuming threads
+        // track when to stop simulation
         try {
             TimeUnit.SECONDS.sleep(run_time);
         } catch (InterruptedException e) {
@@ -51,11 +65,9 @@ public class Factory {
             System.out.println("failed");
         }
 
-        // stop producer and consumer threads
-        producerThread.stop();
-        consumerThread0.stop();
-//        consumerThread1.stop();
-//        consumerThread2.stop();
+        // stop Producer and Consumer Threads
+        for (int i = 0; i < numProducers; i++) { producerArr[i].stop(); }
+        for (int i = 0; i < numConsumers; i++) { consumerArr[i].stop(); }
 
         // print stats on each processed packet for debugging purposes
 //        for(Packet p : Packet.pProcessedList){

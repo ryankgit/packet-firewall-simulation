@@ -109,8 +109,10 @@ public class Packet {
         System.out.println("Max Turn Around Time: " + maxTurnaroundTime + "ms");
         System.out.println("Average Wait Time: " + avgWaitTime + "ms");
         System.out.println("Max Wait Time: " + maxWaitTime + "ms");
-        System.out.println("\nProcessor Utilization: " + (totalServiceTime / (Factory.run_time * 1000)) * 100 +
-                "% (Total Service Time: " + totalServiceTime + "ms, Program Run Time: " + Factory.run_time * 1000.0 + "ms)");
+
+        System.out.println("\nExpected Processor Utilization: " + ((double) Factory.pk_service_time / Factory.pk_interarrival_time) * 100 + "%");
+        System.out.println("Actual Processor Utilization: " + (totalServiceTime / (Factory.run_time * 1000)) * 100 +
+                "% (Total Service Time of " + totalServiceTime + "ms / Program Run Time of " + Factory.run_time * 1000.0 + "ms)");
         System.out.println("Processor Throughput: " + totalPackets / Factory.run_time + " packets/second");
     }
 }

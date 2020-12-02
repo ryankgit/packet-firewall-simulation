@@ -7,15 +7,20 @@
 
 public class SleepUtilities {
 
-    // sleeps threads for random duration
+    // sleeps threads
     public static void nap(double duration) {
         try {
             // Producer duration = interarrivalTime
             // Consumer duration = p.service_time
-            // calculate random sleep duration
-            long rand_duration = (long) (duration * (-Math.log(Math.random())));
+            // ==================================================================
+            // random sleep mode:
+//            long rand_duration = (long) (duration * (-Math.log(Math.random())));
+//            Thread.sleep(rand_duration);
+            // ==================================================================
+            // static sleep mode:
+            Thread.sleep((long)duration);
+            // ==================================================================
 
-            Thread.sleep(rand_duration);
         }
         catch (InterruptedException e) {
             System.out.println("Error in Thread.sleep(duration): " + e);

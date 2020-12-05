@@ -13,12 +13,12 @@ public class SleepUtilities {
             // Producer duration = interarrivalTime
             // Consumer duration = p.service_time
             // ==================================================================
-            // random sleep mode:
-//            long rand_duration = (long) (duration * (-Math.log(Math.random())));
-//            Thread.sleep(rand_duration);
+            // RANDOM MODE (exponential distribution of Packet interarrival and service times):
+            long rand_duration = (long) (duration * (-Math.log(Math.random())));
+            Thread.sleep(rand_duration);
             // ==================================================================
-            // static sleep mode:
-            Thread.sleep((long)duration);
+            // STATIC MODE:
+//            Thread.sleep((long)duration);
             // ==================================================================
 
         }

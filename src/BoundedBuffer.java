@@ -43,7 +43,6 @@ public class BoundedBuffer implements Buffer {
         } catch (Exception e) {
             System.out.println("Error inserting packet:" + e);
         }
-
         // insert packet
         try {
             empty.acquire();
@@ -55,11 +54,8 @@ public class BoundedBuffer implements Buffer {
         ++count;
         buffer[in] = item;
         in = (in + 1) % BUFFER_SIZE;
-        //System.out.println("Producer created " + item + " Buffer Size = " + count);
-
         mutex.release();
         full.release();
-
         return true;
     }
 

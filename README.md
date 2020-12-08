@@ -1,7 +1,7 @@
 # packet-firewall-simulation
 The purpose of this project is to simulate a redundant Firewall. The program consists of a simulated Network that sends Packet objects to the Firewall at various rates. The number and configuration of Networks, Firewalls, Packet interarrival times, Packet service times, and FIFO-queue size can be set by the User to compare how different setting effect network performance. The program uses semaphore logic to emulate an actual firewall implementation and is modeled after a typical java Producer-Consumer program.
 
-_Note: This simulation would best be performed using a simulation language. Java's sleep() function is sometimes inaccurate, so this simulation will be close but not precise. A simulation language implementation would give much more accurate results. However the purpose of this is to learn about Semaphores, Producer/Consumer problems, and CPU scheduling, and this homework accomplishes that._
+_Note: This simulation would best be performed using a simulation language. Java's sleep() function is sometimes inaccurate, so this simulation will be close but not precise. A simulation language implementation would give much more accurate results. However the purpose of this is to learn about Semaphores, Producer/Consumer problems, and CPU scheduling, and this project accomplishes that._
 
 # Project Files
 
